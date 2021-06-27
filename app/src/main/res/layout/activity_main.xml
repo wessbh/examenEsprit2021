@@ -70,6 +70,7 @@
         android:weightSum="2"
         >
 
+
         <Button
             android:id="@+id/joueurs_btn"
             android:layout_width="0dp"
