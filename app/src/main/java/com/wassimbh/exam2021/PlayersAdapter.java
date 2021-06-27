@@ -20,12 +20,14 @@ import java.util.List;
 public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.RecycleViewHolder> {
     private Context context;
     private List<Player> players;
-    OnRecycleItemClicked<Player> listener;
+    private boolean fromMainActivity;
+    private OnRecycleItemClicked<Player> listener;
 
 
-    public PlayersAdapter(List<Player> p ) {
+    public PlayersAdapter(List<Player> p, OnRecycleItemClicked<Player> listener, boolean fromWhere) {
         players = p;
         this.listener = listener;
+        fromMainActivity = fromWhere;
     }
 
 
@@ -44,7 +46,19 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.RecycleV
         Player player = players.get(position);
         holder.username.setText(player.getUserName());
         holder.profileIcon.setImageResource(player.getDrawableID());
-
+        holder.addIcon.setOnClickListener(v -> {
+            listener.onRecyclerItemClicked(position, player);
+        });
+        holder.removeIcon.setOnClickListener(v -> {
+            listener.onRemoveClicked(position, player);
+        });
+        if(fromMainActivity){
+            holder.addIcon.setVisibility(View.VISIBLE);
+            holder.removeIcon.setVisibility(View.GONE);
+        }else{
+            holder.addIcon.setVisibility(View.GONE);
+            holder.removeIcon.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -55,14 +69,19 @@ public class PlayersAdapter extends RecyclerView.Adapter<PlayersAdapter.RecycleV
 
     class RecycleViewHolder extends RecyclerView.ViewHolder {
         TextView username;
-        ImageView profileIcon, addIcon;
+        ImageView profileIcon, addIcon, removeIcon;
 
         public RecycleViewHolder(View itemView) {
             super(itemView);
             username = itemView.findViewById(R.id.username);
             profileIcon = itemView.findViewById(R.id.profile_icon);
             addIcon = itemView.findViewById(R.id.add);
+            removeIcon = itemView.findViewById(R.id.remove);
         }
+    }
+    public void removePlayer(Player player){
+        players.remove(player);
+        notifyDataSetChanged();
     }
 
 }

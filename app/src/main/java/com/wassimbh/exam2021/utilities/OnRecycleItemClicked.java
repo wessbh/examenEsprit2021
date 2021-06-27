@@ -6,4 +6,5 @@ public interface OnRecycleItemClicked <T> {
 
 
     void onRecyclerItemClicked(int pos, T entity);
+    void onRemoveClicked(int pos, T entity);
 }

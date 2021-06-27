@@ -1,8 +1,19 @@
 package com.wassimbh.exam2021.entities;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+import java.util.Objects;
+
+@Entity
 public class Player {
+    @PrimaryKey
     int id;
+    @ColumnInfo(name = "username")
     String userName;
+
+    @ColumnInfo(name = "drawableID")
     int drawableID;
 
     public Player(int id, String userName, int drawableID) {
@@ -33,5 +44,27 @@ public class Player {
 
     public void setDrawableID(int drawableID) {
         this.drawableID = drawableID;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Player player = (Player) o;
+        return id == player.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, userName, drawableID);
+    }
+
+    @Override
+    public String toString() {
+        return "Player{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", drawableID=" + drawableID +
+                '}';
     }
 }
