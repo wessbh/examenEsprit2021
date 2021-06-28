@@ -16,10 +16,14 @@ public class Player {
     @ColumnInfo(name = "drawableID")
     int drawableID;
 
+    @ColumnInfo(name = "different")
+    boolean different;
+
     public Player(int id, String userName, int drawableID) {
         this.id = id;
         this.userName = userName;
         this.drawableID = drawableID;
+        different = false;
     }
 
     public int getId() {
@@ -46,6 +50,13 @@ public class Player {
         this.drawableID = drawableID;
     }
 
+    public boolean isDifferent() {
+        return different;
+    }
+
+    public void setDifferent(boolean different) {
+        this.different = different;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -65,6 +76,7 @@ public class Player {
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", drawableID=" + drawableID +
+                ", different=" + different +
                 '}';
     }
 }

@@ -12,6 +12,7 @@ import androidx.room.Room;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -24,6 +25,7 @@ import android.widget.Toast;
 import com.wassimbh.exam2021.entities.Player;
 import com.wassimbh.exam2021.room.AppDatabase;
 import com.wassimbh.exam2021.room.PlayerDao;
+import com.wassimbh.exam2021.utilities.FromWhere;
 import com.wassimbh.exam2021.utilities.OnRecycleItemClicked;
 import com.wassimbh.exam2021.utilities.SharedPreferenceHelper;
 import com.wassimbh.exam2021.utilities.Utilities;
@@ -69,9 +71,14 @@ public class MainActivity extends AppCompatActivity implements OnRecycleItemClic
             changeFragment(new AmisFragment());
         });
 
+        jouerBtn.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, GameActivity.class);
+            startActivity(intent);
+        });
+
         RecyclerView recyclerView = findViewById(R.id.recycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        PlayersAdapter adapter = new PlayersAdapter(players, this, true);
+        PlayersAdapter adapter = new PlayersAdapter(players, this, FromWhere.MainActivity);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
 

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import com.wassimbh.exam2021.entities.Player;
 import com.wassimbh.exam2021.room.AppDatabase;
 import com.wassimbh.exam2021.room.PlayerDao;
+import com.wassimbh.exam2021.utilities.FromWhere;
 import com.wassimbh.exam2021.utilities.OnRecycleItemClicked;
 
 
@@ -46,7 +47,7 @@ public class AmisFragment extends Fragment implements OnRecycleItemClicked<Playe
         View view = inflater.inflate(R.layout.fragment_amis, container, false);
 
         RecyclerView recyclerView = view.findViewById(R.id.amis_recycler);
-        adapter = new PlayersAdapter(playerDao.getAllPlayers(),this, false);
+        adapter = new PlayersAdapter(playerDao.getAllPlayers(),this, FromWhere.AmisFragment);
         LinearLayoutManager layoutManager = new LinearLayoutManager(requireContext());
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
